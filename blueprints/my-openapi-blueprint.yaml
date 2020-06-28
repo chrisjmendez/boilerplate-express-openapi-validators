@@ -1,0 +1,114 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: My First Open API
+  description: Sample API for Serverless Express
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: /v1
+paths:
+  /users:
+    get:
+      description: |
+        Get users
+      operationId: getUserById
+      x-eov-operation-id: getUserById
+      x-eov-operation-handler: routes/users
+      tags:
+        - developers
+      summary: 'Find a User'
+
+#  /users/{userId}:
+#    get:
+#      description: |
+#        Get users
+#      operationId: getUserById
+#      x-eov-operation-id: users#getUserById
+#      x-eov-operation-handler: routes/users
+#      tags:
+#        - developers
+#      summary: 'Find a User'
+#      parameters:
+#        - in: path
+#          name: userId
+#          type: integer
+#          required: false
+#          minimum: 1
+#          description: Numeric ID of the user to get.
+#        - in: query
+#          name: name
+#          schema:
+#            type: string
+#          required: true
+#          description: Name
+#        - in: query
+#          name: date
+#          schema:
+#            type: string
+#          required: true
+#          description: Date
+#        - in: query
+#          name: skills
+#          schema:
+#            type: array
+#            items:
+#              type: string
+#          required: false
+#          description: Example ?skills|warehouse|administrator|recruiter|driver|equipment|supplies|maintenance|skilled|warehouse|factory
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: pong
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    User:
+      required:
+        - id
+        - name
+        - type
+      properties:
+        id:
+          readOnly: true
+          type: number
+        name:
+          type: string
+        tag:
+          type: string
+        type:
+          $ref: '#/components/schemas/UserType'
+
+    UserType:
+      type: string
+      enum:
+        - Company
+        - Individual
+
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key

@@ -1,19 +1,26 @@
 {
-  "name": "example-express-openapi-validator",
-  "version": "0.0.0",
+  "name": "express-openapi-validator",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "offline": "sls offline",
+    "deploy": "sls deploy --profile default --region us-east-1 --stage dev"
   },
   "dependencies": {
+    "aws-sdk": "^2.706.0",
+    "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "express": "~4.16.1",
+    "express": "^4.17.1",
     "express-openapi-validator": "^3.16.2",
     "less-middleware": "~2.2.1",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "serverless-http": "^2.5.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "faker": "^4.1.0",
+    "nodemon": "^2.0.4",
+    "serverless-offline": "^6.4.0"
   }
 }
